@@ -93,7 +93,7 @@ function shell(bodyHtml, extraCss = '') {
 </style></head><body><div class="page">${bodyHtml}</div></body></html>`;
 }
 
-async function shoot(page, html, file) {
+async function shoot(page, html, file, fixedHeight = null) {
   // setContent는 페이지 URL이 about:blank라 '/docs/...' 같은 절대경로가 서버로 안 간다.
   // 임시 파일로 떨궈 실제 URL로 열어야 이미지와 폰트가 붙는다.
   const tmpDir = path.join(DOCS, '_tmp');
@@ -114,7 +114,19 @@ async function shoot(page, html, file) {
   );
   if (broken.length) throw new Error(`${file}: 이미지 로드 실패 ${broken.join(', ')}`);
   const out = path.join(OUT, file);
-  await page.screenshot({ path: out, fullPage: true });
+
+  // 대표이미지처럼 세로까지 딱 맞춰야 하는 경우엔 clip으로 자른다.
+  // fullPage는 콘텐츠 높이를 따라가서 1px씩 어긋난다.
+  if (fixedHeight) {
+    // 뷰포트가 200px라 clip만 쓰면 화면 밖이 잘린다. fullPage와 같이 써야 전체에서 잘라낸다.
+    await page.screenshot({
+      path: out,
+      fullPage: true,
+      clip: { x: 0, y: 0, width: WIDTH, height: fixedHeight },
+    });
+  } else {
+    await page.screenshot({ path: out, fullPage: true });
+  }
 
   const meta = await sharp(out).metadata();
   if (meta.width !== WIDTH) throw new Error(`${file}: 가로 ${meta.width}px (1200이어야 함)`);
@@ -246,6 +258,63 @@ async function buildResponsive(page) {
   return shoot(page, shell(body, css), 'responsive.png');
 }
 
+// ---------- 대표이미지 cover.png ----------
+//
+// 크몽 목록에서 썸네일로 잘려 보이므로 1200×900(4:3)으로 맞춘다.
+// 목록에서는 축소돼 뜨기 때문에 제목은 크게, 설명은 한 줄로 줄인다.
+
+async function buildCover(page) {
+  const H = 900;
+
+  const css = `
+    body{ height:${H}px; }
+    .page{ padding:56px 56px 0; height:${H}px; display:flex; flex-direction:column; }
+    .title{ font-size:50px; font-weight:700; letter-spacing:-0.045em; line-height:1.15; }
+    .sub{ margin-top:14px; font-size:19px; color:${MUTED}; letter-spacing:-0.02em; }
+    .stage{ position:relative; flex:1; margin-top:32px; }
+
+    /* 세 프레임 모두 아래쪽이 잘리는데, 밑단을 배경색으로 흐리게 빼서
+       '문장 중간에서 툭 끊긴' 느낌 대신 계속 이어지는 화면처럼 보이게 한다.
+       바닥선을 560px로 맞춰 세 개가 같은 높이에서 끝나게 정렬했다. */
+    .shot{
+      position:absolute; background:#fff; border:1px solid ${LINE};
+      overflow:hidden; line-height:0;
+    }
+    .shot img{ display:block; }
+    .shot::after{
+      content:''; position:absolute; left:0; right:0; bottom:0; height:110px;
+      background:linear-gradient(to bottom, rgba(247,248,250,0), ${BG});
+    }
+
+    .desk{ left:0; top:0; width:760px; height:560px; box-shadow:0 18px 40px rgba(16,24,40,0.10); }
+    .desk img{ width:760px; }
+
+    /* 태블릿·모바일은 반응형이라는 신호만 주면 되므로 겹쳐서 작게 */
+    .tab{ right:150px; top:30px; width:230px; height:530px; box-shadow:0 14px 32px rgba(16,24,40,0.12); }
+    .tab img{ width:230px; }
+    .mob{ right:0; top:60px; width:145px; height:500px; box-shadow:0 14px 32px rgba(16,24,40,0.14); }
+    .mob img{ width:145px; }
+
+    .foot{ margin-top:0; margin-bottom:26px; }
+  `;
+
+  const body = `
+    <!-- '오차 없이'는 실측(최대 1px)보다 센 표현이라 캡션 문구와 톤을 맞춘다. -->
+    <div class="title">Figma 시안 그대로,<br>1px까지 맞춘 퍼블리싱</div>
+    <div class="sub">HTML + SCSS · 반응형 1920 / 768 / 375 · 크로스브라우징 3종 검증</div>
+
+    <div class="stage">
+      <div class="shot desk"><img src="/docs/shots/chromium-1920.png" alt=""></div>
+      <div class="shot tab"><img src="/docs/shots/chromium-768.png" alt=""></div>
+      <div class="shot mob"><img src="/docs/shots/chromium-375.png" alt=""></div>
+    </div>
+
+    <div class="foot">${FOOTNOTE}</div>
+  `;
+
+  return shoot(page, shell(body, css), 'cover.png', H);
+}
+
 // ---------- 3. optimization.png ----------
 
 async function buildOptimization(page) {
@@ -328,6 +397,7 @@ async function main() {
   });
 
   const results = {};
+  results.cover = await buildCover(page);
   results.compare = await buildCompare(page);
   results.responsive = await buildResponsive(page);
 
