@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Codev — Make Your Business Dream Come True with a Professional Website</title>
+    <meta
+      name="description"
+      content="Codev is a web development agency. We build professional, mobile-friendly and SEO-optimized websites, UI/UX designs and applications for your business."
+    />
+
+    <!-- 폰트: 가장 먼저 그려지는 히어로 제목/본문 굵기만 미리 당겨온다.
+         나머지 굵기는 @font-face의 swap에 맡겨 초기 요청 수를 줄인다. -->
+    <link
+      rel="preload"
+      href="assets/fonts/playfair-display-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/manrope-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <meta name="theme-color" content="#132229" />
+  </head>
+
+  <body>
+    <!-- 키보드 사용자가 네비게이션을 건너뛰고 본문으로 바로 갈 수 있게 (WCAG 2.4.1) -->
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- ===== Navbar ===== -->
+    <header class="nav is-dark">
+      <div class="nav__inner">
+        <a class="nav__brand" href="#main" aria-label="Codev home">
+          <img src="assets/icons/brand.svg" alt="Codev" width="106" height="30" />
+        </a>
+
+        <nav aria-label="Main">
+          <ul class="nav__menu">
+            <li><a class="nav__link" href="#services">Service</a></li>
+            <li><a class="nav__link" href="#products">Portfolio</a></li>
+            <li><a class="nav__link" href="#cta">Career</a></li>
+            <li><a class="nav__link" href="#site-footer">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ===== Hero ===== -->
+      <section class="section hero is-dark" aria-labelledby="hero-title">
+        <div class="section__inner hero__inner">
+          <h1 class="hero__title" id="hero-title">
+            Make Your Business Dream Come True with a Professional Website!
+          </h1>
+
+          <!-- 순수 장식 격자. 의미가 없으므로 접근성 트리에서 제외한다. -->
+          <div class="deco" aria-hidden="true">
+            <div class="deco__row">
+              <span class="deco__cell"><img src="assets/icons/hero/l00.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l01.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l02.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l03.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l04.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l04.svg" alt="" /></span>
+            </div>
+            <div class="deco__row">
+              <span class="deco__cell"><img src="assets/icons/hero/l05.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l06.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l07.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l08.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l09.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l04.svg" alt="" /></span>
+            </div>
+            <div class="deco__row">
+              <span class="deco__cell"><img src="assets/icons/hero/l10.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l11.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l12.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l08.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l13.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l14.svg" alt="" /></span>
+            </div>
+            <div class="deco__row">
+              <span class="deco__cell"><img src="assets/icons/hero/l15.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l16.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l17.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l18.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l19.svg" alt="" /></span>
+              <span class="deco__cell"><img src="assets/icons/hero/l20.svg" alt="" /></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== About ===== -->
+      <section class="section about" aria-labelledby="about-title">
+        <div class="section__inner cols reveal">
+          <div class="cols__col">
+            <h2 class="h-display" id="about-title">
+              Don't wait any longer, start your journey to business success with a professional
+              website!
+            </h2>
+          </div>
+
+          <div class="cols__col about__aside">
+            <p class="about__text">
+              Codev is here as the right solution to help you create a website easily and quickly.
+              Our team of experts is ready to help you realize your dream website that is
+              professional, mobile-friendly, and SEO-optimized.
+            </p>
+
+            <a class="btn-outline" href="#services">
+              <span class="btn-outline__label">More about Codev</span>
+              <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <hr class="rule" />
+
+      <!-- ===== Service ===== -->
+      <section class="section services" id="services" aria-labelledby="services-title">
+        <div class="section__inner">
+          <h2 class="h-display" id="services-title">The services we offer</h2>
+
+          <ul class="card-row card-row--3 reveal">
+            <li class="card">
+              <div class="card__text">
+                <h3 class="card__title">Web development</h3>
+                <p class="card__desc">
+                  Our team of experts is ready to help you create your dream website that suits your
+                  needs and budget.
+                </p>
+              </div>
+              <a class="link-more" href="#products">
+                <span class="link-more__label">View more</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+                <span class="sr-only">about web development</span>
+              </a>
+            </li>
+
+            <li class="card">
+              <div class="card__text">
+                <h3 class="card__title">UI/UX Design</h3>
+                <p class="card__desc">
+                  With us, create a UI/UX design that improves the performance of your
+                  website/application!
+                </p>
+              </div>
+              <a class="link-more" href="#products">
+                <span class="link-more__label">View more</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+                <span class="sr-only">about UI/UX design</span>
+              </a>
+            </li>
+
+            <li class="card">
+              <div class="card__text">
+                <h3 class="card__title">App development</h3>
+                <p class="card__desc">
+                  Together with Codev, create applications that increase the value of your business!
+                </p>
+              </div>
+              <a class="link-more" href="#products">
+                <span class="link-more__label">View more</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+                <span class="sr-only">about app development</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== Founder quote ===== -->
+      <!-- 제목이 없는 인용 블록이라 figure/blockquote로 묶는다.
+           heading을 억지로 넣으면 시안에 없는 요소가 생기므로 넣지 않는다. -->
+      <section class="section quote is-dark">
+        <figure class="section__inner cols reveal">
+          <div class="cols__col">
+            <div class="media">
+              <img
+                class="media__shape"
+                src="assets/icons/shape-mint.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="media__photo media__photo--founder"
+                src="assets/img/portrait-founder.webp"
+                alt="Marilyn Liu, founder of Codev"
+                width="524"
+                height="506"
+              />
+            </div>
+          </div>
+
+          <div class="cols__col quote__body">
+            <blockquote class="quote__text">
+              <p>
+                &ldquo; <strong>I understand</strong> that you have many choices in choosing a
+                partner to help you achieve <strong>your business goals.</strong> &rdquo;
+              </p>
+            </blockquote>
+
+            <figcaption class="quote__action">
+              <div class="person">
+                <span class="person__role">Founder of Codev</span>
+                <span class="person__name">Marilyn Liu</span>
+              </div>
+
+              <ul class="quote__links">
+                <li><a href="#site-footer">Instagram</a></li>
+                <li><a href="#site-footer">LinkedIn</a></li>
+              </ul>
+
+              <a class="btn-square" href="#products" aria-label="See more from the founder">
+                <img
+                  class="icon"
+                  src="assets/icons/arrow-right.svg"
+                  alt=""
+                  width="40"
+                  height="40"
+                />
+              </a>
+            </figcaption>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ===== Product ===== -->
+      <section class="section products" id="products" aria-labelledby="products-title">
+        <div class="section__inner">
+          <h2 class="h-display" id="products-title">Product</h2>
+
+          <ul class="card-row card-row--2 reveal">
+            <li class="card card--product">
+              <div class="card__text">
+                <h3 class="card__title">E-commerce</h3>
+                <p class="card__desc">
+                  Having your own ecommerce website is an important step to building a successful
+                  online business.
+                </p>
+              </div>
+              <div class="card__shot">
+                <img
+                  src="assets/img/product-ecommerce.webp"
+                  alt="Checkout screen of an ecommerce site built by Codev, showing an order summary and payment method form"
+                  width="710"
+                  height="500"
+                  loading="lazy"
+                />
+              </div>
+              <a class="link-more" href="#cta">
+                <span class="link-more__label">View more</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+                <span class="sr-only">about the ecommerce product</span>
+              </a>
+            </li>
+
+            <li class="card card--product">
+              <div class="card__text">
+                <h3 class="card__title">Sign Up</h3>
+                <p class="card__desc">
+                  A sign up page is a website page designed to encourage visitors to register for a
+                  service, newsletter, or new account.
+                </p>
+              </div>
+              <div class="card__shot">
+                <img
+                  src="assets/img/product-signup.webp"
+                  alt="Create an Account sign up screen built by Codev, with an account form beside a lifestyle photo"
+                  width="710"
+                  height="500"
+                  loading="lazy"
+                />
+              </div>
+              <a class="link-more" href="#cta">
+                <span class="link-more__label">View more</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+                <span class="sr-only">about the sign up product</span>
+              </a>
+            </li>
+          </ul>
+
+          <a class="btn-block" href="#cta">See more products</a>
+        </div>
+      </section>
+
+      <!-- ===== Testimonial ===== -->
+      <section class="section testimonials" aria-labelledby="testimonials-title">
+        <div class="section__inner">
+          <h2 class="h-display" id="testimonials-title">Here's what our clients say about Codev</h2>
+
+          <ul class="card-row card-row--3 reveal">
+            <li class="card">
+              <div class="card__text">
+                <div class="person person--row">
+                  <img
+                    class="person__avatar"
+                    src="assets/img/avatar-1.webp"
+                    alt=""
+                    width="75"
+                    height="75"
+                    loading="lazy"
+                  />
+                  <span class="person__meta">
+                    <span class="person__name person__name--sm">Omar Vaccaro</span>
+                    <span class="person__role">Founder of Valcro</span>
+                  </span>
+                </div>
+                <p class="card__desc">
+                  I am very satisfied with the results of the website created by the Codev team. My
+                  website looks professional and easy to use. The Codev team was very responsive and
+                  helped me every step of the way.
+                </p>
+              </div>
+              <a class="link-more" href="#cta">
+                <span class="link-more__label">Valcro.com</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+              </a>
+            </li>
+
+            <li class="card">
+              <div class="card__text">
+                <div class="person person--row">
+                  <img
+                    class="person__avatar"
+                    src="assets/img/avatar-2.webp"
+                    alt=""
+                    width="75"
+                    height="75"
+                    loading="lazy"
+                  />
+                  <span class="person__meta">
+                    <span class="person__name person__name--sm">Jocelyn Donin</span>
+                    <span class="person__role">Founder of Messy</span>
+                  </span>
+                </div>
+                <p class="card__desc">
+                  Since I used Codev services to create a website, my business has grown rapidly. My
+                  website looks attractive and is easy to navigate, increasing conversions and sales.
+                </p>
+              </div>
+              <a class="link-more" href="#cta">
+                <span class="link-more__label">Messy.com</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+              </a>
+            </li>
+
+            <li class="card">
+              <div class="card__text">
+                <div class="person person--row">
+                  <img
+                    class="person__avatar"
+                    src="assets/img/avatar-3.webp"
+                    alt=""
+                    width="75"
+                    height="75"
+                    loading="lazy"
+                  />
+                  <span class="person__meta">
+                    <span class="person__name person__name--sm">Nolan Calzoni</span>
+                    <span class="person__role">Founder of Goblink</span>
+                  </span>
+                </div>
+                <p class="card__desc">
+                  Codev completed my website on time and with outstanding quality. The Codev team is
+                  very easy to work with and always open to my ideas. I am very satisfied with the
+                  results of my website
+                </p>
+              </div>
+              <a class="link-more" href="#cta">
+                <span class="link-more__label">Goblink.org</span>
+                <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+              </a>
+            </li>
+          </ul>
+
+          <a class="btn-block btn-block--underline" href="#cta">See more testimonial</a>
+        </div>
+      </section>
+
+      <!-- ===== Banner / CTA ===== -->
+      <section class="section cta" id="cta" aria-labelledby="cta-title">
+        <div class="section__inner cols reveal">
+          <div class="cols__col">
+            <div class="media">
+              <img class="media__shape" src="assets/icons/shape-mint.svg" alt="" aria-hidden="true" />
+              <img
+                class="media__photo media__photo--team"
+                src="assets/img/portrait-team.webp"
+                alt="Five members of the Codev team standing together"
+                width="774"
+                height="516"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="cols__col cta__body">
+            <h2 class="cta__title" id="cta-title">Interested in working together?</h2>
+
+            <a class="btn-outline" href="#site-footer">
+              <span class="btn-outline__label">Start a Project</span>
+              <img class="icon" src="assets/icons/arrow-right.svg" alt="" width="30" height="30" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="section site-footer is-dark" id="site-footer">
+      <div class="section__inner cols">
+        <div class="cols__col site-footer__brand">
+          <img
+            class="site-footer__logo"
+            src="assets/icons/brand.svg"
+            alt="Codev"
+            width="106"
+            height="30"
+          />
+
+          <p class="site-footer__tagline">Make your digital dreams come true with us.</p>
+
+          <a class="btn-outline btn-outline--mint" href="mailto:hello@codev.example">
+            <span class="btn-outline__label">Let's collaborate</span>
+            <img class="icon" src="assets/icons/arrow-right-mint.svg" alt="" width="30" height="30" />
+          </a>
+
+          <p class="site-footer__copy">&copy;&#xFE0F; Codev 2024, All right reserved</p>
+        </div>
+
+        <div class="cols__col site-footer__menus">
+          <nav class="footer-menu" aria-labelledby="fm-codev">
+            <h2 class="footer-menu__title" id="fm-codev">Codev</h2>
+            <ul>
+              <li><a href="#main">About Codev</a></li>
+              <li><a href="#services">Service</a></li>
+              <li><a href="#products">Product</a></li>
+              <li><a href="#products">Portfolio</a></li>
+              <li><a href="#cta">Career</a></li>
+              <li><a href="mailto:hello@codev.example">Contact</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer-menu" aria-labelledby="fm-follow">
+            <h2 class="footer-menu__title" id="fm-follow">Follow Us</h2>
+            <ul>
+              <li><a href="#site-footer">Instagram</a></li>
+              <li><a href="#site-footer">LinkedIn</a></li>
+              <li><a href="#site-footer">TikTok</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!-- 라이선스 표기 (시안 출처) -->
+      <p class="site-footer__license">
+        Design:
+        <a
+          href="https://www.figma.com/community/file/1351088940773567929/b2b-landing-page-design"
+          rel="noopener noreferrer"
+          target="_blank"
+          >Figma Community — Codev B2B Landing Page</a
+        >
+      </p>
+    </footer>
+
+    <script src="src/js/main.js" defer></script>
+  </body>
+</html>

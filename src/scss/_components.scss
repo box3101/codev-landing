@@ -1,0 +1,343 @@
+@use 'sass:math';
+@use 'functions' as *;
+
+// ===== 공통 타이포 =====
+
+// 섹션 제목 — 시안 Playfair Display Regular 50px
+.h-display {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  color: var(--c-text);
+}
+
+// ===== 아이콘 =====
+//
+// 시안의 tabler arrow는 30×30 박스 안에 그려져 있다.
+// 박스와 글리프 비율을 유지해야 버튼 안에서 위치가 안 틀어지므로
+// 컨테이너 크기를 명시하고 내부는 100%로 채운다.
+.icon {
+  flex: 0 0 auto;
+  width: #{fluid(18px, 30px)};
+  height: #{fluid(18px, 30px)};
+}
+
+// ===== 텍스트 링크형 버튼 (View more / Valcro.com …) =====
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-xs); // 시안 7.5px
+  color: var(--c-text);
+  font-size: var(--fs-body);
+
+  &__label {
+    text-decoration: underline;
+    text-underline-position: from-font;
+  }
+
+  // 호버 시 화살표만 살짝 오른쪽으로. 레이아웃이 밀리지 않게 transform만 쓴다.
+  .icon {
+    transition: transform var(--dur) var(--ease);
+  }
+
+  &:hover .icon {
+    transform: translateX(0.25em);
+  }
+}
+
+// ===== 테두리 버튼 (More about Codev / Start a Project / Let's collaborate) =====
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm); // 시안 20px
+  padding: #{fluid(9px, 15px)} var(--sp-sm); // 시안 15px / 20px
+  border: var(--bw) solid var(--c-line);
+  color: var(--c-text);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+
+  &__label {
+    text-decoration: underline;
+    text-underline-position: from-font;
+  }
+
+  .icon {
+    transition: transform var(--dur) var(--ease);
+  }
+
+  &:hover {
+    background: var(--c-text);
+    color: var(--c-bg);
+
+    // 아이콘은 SVG 파일이라 색을 못 바꾼다. 반전 필터로 배경 대비를 맞춘다.
+    .icon {
+      transform: translateX(0.25em);
+      filter: invert(1);
+    }
+  }
+
+  // 다크 배경(푸터)용 — 민트 테두리
+  &--mint {
+    border-color: var(--c-mint);
+    color: var(--c-mint);
+
+    &:hover {
+      background: var(--c-mint);
+      color: var(--c-ink);
+
+      .icon {
+        filter: invert(1);
+      }
+    }
+  }
+}
+
+// ===== 전폭 버튼 (See more products / See more testimonial) =====
+.btn-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-sm);
+  width: 100%;
+  padding: #{fluid(9px, 15px)} var(--sp-sm);
+  border: var(--bw) solid var(--c-line);
+  color: var(--c-text);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+
+  // 시안에서 'See more testimonial'만 밑줄이 있고 'See more products'는 없다.
+  &--underline {
+    text-decoration: underline;
+    text-underline-position: from-font;
+  }
+
+  &:hover {
+    background: var(--c-text);
+    color: var(--c-bg);
+  }
+}
+
+// ===== 정사각 아이콘 버튼 (인용구 우측) =====
+.btn-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: #{fluid(36px, 60px)}; // 시안 60×60
+  height: #{fluid(36px, 60px)};
+  background: var(--c-mint);
+  transition: opacity var(--dur) var(--ease);
+
+  .icon {
+    width: #{fluid(24px, 40px)}; // 시안 40
+    height: #{fluid(24px, 40px)};
+  }
+
+  &:hover {
+    opacity: 0.82;
+  }
+}
+
+// ===== 카드 =====
+//
+// 시안은 상/하 테두리만 있는 카드다. 좌우 테두리를 넣으면 시안과 달라진다.
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg); // 시안 55px
+  padding: var(--sp-sm); // 시안 20px
+  border-top: var(--bw) solid var(--c-line);
+  border-bottom: var(--bw) solid var(--c-line);
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm); // 시안 20px
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500; // 시안 Medium
+    font-size: var(--fs-title); // 시안 40px
+    line-height: var(--lh-display);
+    color: var(--c-text);
+  }
+
+  &__desc {
+    color: var(--c-muted); // 시안 #555
+    font-size: var(--fs-body);
+  }
+
+  // 제품 카드의 스크린샷 영역 — 시안 710×500, 배경 #f5f5f5, 넘치면 잘림
+  &__shot {
+    aspect-ratio: 710 / 500;
+    overflow: hidden;
+    background: #f5f5f5;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+    }
+  }
+
+  // 카드 목록은 ul/li라서 마커를 지운다 (_base에서 처리하지만 명시적으로 한 번 더)
+  &--product {
+    overflow: hidden;
+  }
+}
+
+// 카드 행
+//
+// 시안의 카드는 '균등 분할'이 아니라 내용 기준 고정폭이고, 남는 공간이 사이 간격이 된다.
+//   3열: 카드 482.5px(본문 442.5 + 좌우 패딩 20) × 3 = 1447.5, 남는 152.5를 2등분 → 간격 76.25
+//   2열: 카드 750px × 2 = 1500, 남는 100이 그대로 간격
+// 콘텐츠 폭 1600에 대한 비율로 바꿔두면 화면이 줄어도 이 비례가 유지된다.
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+
+  > .card {
+    min-width: 0;
+  }
+
+  &--3 > .card {
+    flex: 0 1 math.percentage(math.div(482.5, 1600)); // 30.156%
+  }
+
+  &--2 > .card {
+    flex: 0 1 math.percentage(math.div(750, 1600)); // 46.875%
+  }
+
+  // 태블릿: 3열은 2열로 접는다. 카드를 지우지 않고 줄만 바꾼다.
+  @media (max-width: 1100px) {
+    &--3 {
+      flex-wrap: wrap;
+      gap: var(--sp-lg);
+      justify-content: flex-start;
+
+      > .card {
+        flex: 1 1 calc(50% - var(--sp-lg));
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: var(--sp-lg);
+
+    > .card {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+// ===== 인물 정보 =====
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+
+  &--row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: #{fluid(9px, 15px)}; // 시안 15px
+  }
+
+  &__avatar {
+    flex: 0 0 auto;
+    width: #{fluid(44px, 75px)}; // 시안 75px
+    height: #{fluid(44px, 75px)};
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xs);
+  }
+
+  &__name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    font-size: var(--fs-title); // 시안 40px (인용구 하단)
+
+    // 후기 카드 안에서는 25px
+    &--sm {
+      font-weight: 400;
+      font-size: var(--fs-body);
+      color: var(--c-text);
+    }
+  }
+
+  &__role {
+    font-size: var(--fs-caption); // 시안 20px
+    color: var(--c-muted);
+  }
+}
+
+// ===== 사진 + 민트 도형 =====
+//
+// 시안은 민트 도형을 -90도 회전시켜 750×560 영역에 깔고 그 위에 인물 사진을 얹는다.
+// 도형 원본 viewBox는 186.564×250(세로형)이라 회전 후 크기가 뒤바뀐다.
+// 그래서 컨테이너 비율을 750:560으로 잡고 도형은 회전 기준으로 폭/높이를 바꿔 넣는다.
+.media {
+  position: relative;
+  aspect-ratio: 750 / 560;
+  width: 100%;
+
+  // 회전하면 요소의 가로·세로가 뒤바뀐다.
+  // 최종적으로 750×560을 채우려면 회전 '전'에 560×750이어야 한다.
+  // 즉 도형의 높이 = 컨테이너의 폭이다. 컨테이너 비율이 750:560이므로
+  // height: 100%(=컨테이너 높이)에 750/560을 곱하면 컨테이너 폭이 나온다.
+  &__shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: calc(100% * 750 / 560);
+    aspect-ratio: 186.564 / 250;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center;
+  }
+
+  // 사진은 시안에서 '고정 크기 박스 + 크롭'이다. height를 auto로 두면
+  // 원본 비율대로 늘어나 박스를 넘치고, 인용문 위로 사진이 겹친다.
+  // 그래서 폭·높이를 둘 다 컨테이너(750×560) 비율로 못박고 object-fit: cover로 자른다.
+  &__photo {
+    position: absolute;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  // 인용구 섹션 인물 — 시안 523.75×506.25, 중앙에서 아래로 26.88px
+  &__photo--founder {
+    top: calc(50% + 4.8%); // 26.88 / 560
+    left: 50%;
+    width: 69.833%; // 523.75 / 750
+    height: 90.402%; // 506.25 / 560
+    // 시안은 세로 원본(408×612)을 가로 박스(523.75×506.25)에 넣으면서
+    // 위쪽 기준으로 잘라 얼굴~가슴까지만 보이게 했다. 하단 기준으로 자르면 머리가 날아간다.
+    object-position: center top;
+    transform: translate(-50%, -50%);
+  }
+
+  // 배너 단체 사진 — 시안 773.75×515.83, 상단에서 43.75px, 중앙에서 우측으로 11.88px
+  &__photo--team {
+    top: 7.813%; // 43.75 / 560
+    left: calc(50% + 1.584%); // 11.88 / 750
+    width: 103.167%; // 773.75 / 750
+    height: 92.113%; // 515.83 / 560
+    transform: translateX(-50%);
+  }
+}

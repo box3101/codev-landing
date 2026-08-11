@@ -1,0 +1,89 @@
+@use 'functions' as *;
+
+// ===== 레이아웃 골격 =====
+//
+// 시안은 1800px 캔버스 = 좌우 패딩 100 + 콘텐츠 1600 구조다.
+// 이걸 그대로 고정폭으로 짜면 1920 화면에서 양옆이 비어버린다.
+// 그래서 배경은 전폭으로 깔고 콘텐츠만 1600 중앙 정렬한다.
+// 1920 기준으로 계산해보면 (1920-1600)/2 = 160px 이고,
+// 시안을 1920 한가운데 놓았을 때의 텍스트 시작점(60+100=160)과 정확히 같다. → 1:1 성립
+
+.section {
+  padding-inline: var(--gutter);
+  padding-block: var(--sp-xl);
+
+  &__inner {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+
+  // 다크 배경 섹션
+  &--dark {
+    background: var(--c-ink);
+    color: var(--c-mint);
+  }
+}
+
+// 2컬럼 — 시안은 750 + 750, space-between
+.cols {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-xl);
+
+  &__col {
+    flex: 0 1 calc(50% - (var(--sp-xl) / 2));
+    min-width: 0; // flex 자식이 내용 때문에 안 줄어드는 문제 방지
+  }
+
+  // 태블릿 이하에서는 세로로 쌓는다.
+  // 시안에 반응형 프레임이 없어서 데스크톱 배치를 기준으로 재배치했고,
+  // 요소를 지우지 않고 순서만 유지한 채 1열로 내렸다.
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: var(--sp-lg);
+
+    // flex-direction이 column이 되면 align-items는 '가로축'을 지배한다.
+    // 데스크톱에서 쓰던 flex-end가 그대로 남으면 컬럼이 내용 폭까지 줄어드는데,
+    // 이때 안쪽 .media는 width:100%라 0이 되어 사진이 통째로 사라진다.
+    // 그래서 세로 배치에서는 stretch로 되돌린다.
+    align-items: stretch;
+
+    &__col {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+}
+
+// 섹션 사이 구분선
+//
+// 시안의 'line'은 단순한 선이 아니라 높이 10px짜리 프레임이고,
+// 그 안에서 선이 위에서 3px 내려온 위치에 있다.
+// 높이 0인 hr로 만들면 이 10px이 통째로 사라져 아래 섹션 전체가 위로 밀린다.
+// (실제로 이것 때문에 서비스 카드 상단선이 6px 어긋났다)
+.rule {
+  box-sizing: border-box;
+  max-width: var(--content-max);
+  height: #{fluid(4px, 7px)};
+  margin: #{fluid(2px, 3px)} auto 0;
+  border: 0;
+  border-top: var(--bw) solid var(--c-line);
+}
+
+// ===== 스크롤 페이드인 =====
+//
+// 요청 범위가 "과하지 않게"라서 등장 효과 하나만 둔다.
+// JS가 꺼져 있거나 IntersectionObserver가 없으면 .reveal 클래스 자체를 안 붙이므로
+// 콘텐츠는 항상 보인다. (JS 실패 시 화면이 비는 사고 방지)
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}

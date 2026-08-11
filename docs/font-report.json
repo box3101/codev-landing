@@ -1,0 +1,42 @@
+{
+  "charset_size": 100,
+  "fonts": [
+    {
+      "file": "playfair-display-400.woff2",
+      "weight": 400,
+      "source": "playfair-display-var.woff2",
+      "source_bytes": 38404,
+      "bytes": 11444
+    },
+    {
+      "file": "playfair-display-500.woff2",
+      "weight": 500,
+      "source": "playfair-display-var.woff2",
+      "source_bytes": 38404,
+      "bytes": 12220
+    },
+    {
+      "file": "playfair-display-700.woff2",
+      "weight": 700,
+      "source": "playfair-display-var.woff2",
+      "source_bytes": 38404,
+      "bytes": 12376
+    },
+    {
+      "file": "manrope-400.woff2",
+      "weight": 400,
+      "source": "manrope-var.woff2",
+      "source_bytes": 24836,
+      "bytes": 7928
+    },
+    {
+      "file": "manrope-600.woff2",
+      "weight": 600,
+      "source": "manrope-var.woff2",
+      "source_bytes": 24836,
+      "bytes": 7940
+    }
+  ],
+  "total_source_bytes": 63240,
+  "total_bytes": 51908
+}

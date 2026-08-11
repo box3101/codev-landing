@@ -1,0 +1,12 @@
+// Codev B2B Landing Page — 퍼블리싱 데모
+// 시안: Figma Community — Codev B2B Landing Page Design
+//
+// 로드 순서에 의미가 있다.
+// tokens(변수) → base(리셋·폰트) → layout(골격) → components(재사용) → sections(개별)
+// 뒤로 갈수록 구체적이라 나중에 온 규칙이 자연스럽게 이긴다.
+
+@use 'tokens';
+@use 'base';
+@use 'layout';
+@use 'components';
+@use 'sections';

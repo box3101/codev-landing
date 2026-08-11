@@ -1,0 +1,34 @@
+@use 'sass:math';
+
+// ===== 유동 타이포/스페이싱 =====
+//
+// 판단 근거:
+// 시안 캔버스가 1800px이라 데스크톱에서는 시안 수치를 그대로 써야 1:1이 된다.
+// 그런데 768~1800 구간을 브레이크포인트로만 끊으면 경계에서 글자 크기가 툭 튄다.
+// 그래서 clamp()로 선형 보간해서 1800px에서 정확히 시안값에 도달하도록 계산한다.
+//   - 뷰포트 1800px 이상 → $max (시안값 그대로, 1:1 보장)
+//   - 뷰포트 768px 이하  → $min (모바일 가독 하한)
+//   - 그 사이            → 기울기 일정하게 선형 증가
+//
+// vw 단위만 쓰면 사용자가 브라우저 기본 폰트 크기를 키워도 반응하지 않아
+// 접근성(WCAG 1.4.4 텍스트 크기 조정)에 걸린다. 그래서 rem 절편 + vw 기울기를 더한다.
+
+$vw-min: 768 !default;
+$vw-max: 1800 !default;
+$root-font: 16 !default; // rem 환산 기준
+
+@function fluid($min, $max, $from: $vw-min, $to: $vw-max) {
+  // px 단위 제거
+  $min-px: math.div($min, 1px);
+  $max-px: math.div($max, 1px);
+
+  // 기울기(vw당 증가량)와 절편(px) 계산
+  $slope: math.div($max-px - $min-px, $to - $from);
+  $intercept: $min-px - ($slope * $from);
+
+  @return clamp(
+    #{$min},
+    #{math.div($intercept, $root-font)}rem + #{$slope * 100}vw,
+    #{$max}
+  );
+}

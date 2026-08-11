@@ -1,0 +1,14 @@
+{
+  "compare": {
+    "width": 1200,
+    "height": 1218
+  },
+  "responsive": {
+    "width": 1200,
+    "height": 2217
+  },
+  "optimization": {
+    "width": 1200,
+    "height": 587
+  }
+}

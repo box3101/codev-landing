@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+*.log
+
+# 캡처 결과 — 용량이 커서 저장소에 넣지 않는다 (필요하면 npm run shots로 재생성)
+docs/shots/
+docs/sbs*.png
+docs/z-*.png
+docs/full-*.png
+docs/diff-top.png
+docs/raw-contact-sheet.png
+docs/_crop/
+docs/_tmp/
+docs/diff-overlay.png
+docs/q-*.png
+docs/vp-*.png

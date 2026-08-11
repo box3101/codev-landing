@@ -1,0 +1,42 @@
+{
+  "photos": [
+    {
+      "file": "portrait-founder.webp",
+      "source": "raw_03.png",
+      "before": 285606,
+      "after": 20028,
+      "width": 408
+    },
+    {
+      "file": "portrait-team.webp",
+      "source": "raw_12.png",
+      "before": 316559,
+      "after": 26920,
+      "width": 612
+    }
+  ],
+  "avatars": [
+    {
+      "file": "avatar-1.webp",
+      "source": "raw_09.jpg",
+      "before": 20993,
+      "after": 3148
+    },
+    {
+      "file": "avatar-2.webp",
+      "source": "raw_06.jpg",
+      "before": 24813,
+      "after": 4326
+    },
+    {
+      "file": "avatar-3.webp",
+      "source": "raw_10.jpg",
+      "before": 45511,
+      "after": 3180
+    }
+  ],
+  "products": [],
+  "total_before": 693482,
+  "total_after": 57602,
+  "saved_pct": 91.7
+}

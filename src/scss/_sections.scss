@@ -1,0 +1,382 @@
+@use 'functions' as *;
+
+// ===== Navbar =====
+//
+// 시안 높이 123px = 상하 패딩 15 + 링크 박스(패딩 30 + 행높이 33).
+// 다크 배경은 히어로와 이어져 하나의 덩어리로 보이므로 두 섹션 모두 전폭으로 깐다.
+.nav {
+  background: var(--c-ink);
+  padding: #{fluid(9px, 15px)} var(--gutter);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: #{fluid(24px, 125px)}; // 시안 125px
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+
+  &__brand img {
+    width: #{fluid(70px, 106px)}; // 시안 106.48 × 30.03
+    height: auto;
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm); // 시안 30px → 좁은 화면에서 20까지 줄어듦
+  }
+
+  &__link {
+    display: inline-block;
+    padding: #{fluid(10px, 30px)} #{fluid(6px, 15px)};
+    color: var(--c-mint);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    font-size: var(--fs-body); // 시안 25px
+    transition: opacity var(--dur) var(--ease);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  // 모바일에서는 로고와 메뉴를 세로로 쌓는다.
+  // 시안에 모바일 프레임이 없어 햄버거 메뉴는 만들지 않았다.
+  // 링크가 4개뿐이라 그대로 노출하는 편이 시안 구조를 덜 훼손한다.
+  @media (max-width: 560px) {
+    &__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    &__menu {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// ===== Hero =====
+.hero {
+  background: var(--c-ink);
+
+  &__inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-xl);
+    // 시안 콘텐츠 높이 530px. 제목(3줄=200)도 장식 격자(495)도 이보다 짧아서
+    // 높이를 명시하지 않으면 섹션이 통째로 35px 짧아진다.
+    // items-end라 남는 공간은 위쪽에 생긴다.
+    min-height: #{fluid(0px, 530px)};
+  }
+
+  &__title {
+    flex: 0 1 auto;
+    max-width: 750px; // 시안 Col-1 폭
+    margin: 0;
+    color: var(--c-mint);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-size: var(--fs-display); // 시안 50px
+    line-height: var(--lh-display);
+  }
+
+  @media (max-width: 900px) {
+    &__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--sp-lg);
+    }
+
+    &__title {
+      max-width: none;
+    }
+  }
+}
+
+// 히어로 장식 격자 — 시안 4행 × 6열, 셀 90px, 행 간격 45px
+.deco {
+  display: flex;
+  flex-direction: column;
+  gap: #{fluid(14px, 45px)};
+
+  &__row {
+    display: flex;
+  }
+
+  &__cell {
+    display: block;
+    width: #{fluid(28px, 90px)};
+    height: #{fluid(28px, 90px)};
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // 375 기준으로는 6열 × 90px가 화면을 넘긴다.
+  // 요소를 지우지 말라는 조건이 있으므로 셀 크기만 줄여 6열을 유지한다.
+  @media (max-width: 900px) {
+    align-self: flex-start;
+  }
+}
+
+// ===== About =====
+.about {
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--sp-lg);
+    // 시안은 Col-2가 400px 높이 안에서 space-between으로 벌어져 있다.
+    min-height: #{fluid(0px, 400px)};
+  }
+
+  &__text {
+    font-size: var(--fs-body);
+  }
+
+  // 버튼이 우측 정렬로 붙는다 (시안 기준)
+  .btn-outline {
+    align-self: flex-end;
+  }
+
+  @media (max-width: 900px) {
+    &__aside {
+      min-height: 0;
+    }
+
+    .btn-outline {
+      align-self: flex-start;
+    }
+  }
+}
+
+// ===== Service / Product / Testimonial 공통 =====
+//
+// 세 섹션 모두 '제목 → 카드행 → (선택) 전폭 버튼' 구조에 간격 55px로 동일하다.
+.services,
+.products,
+.testimonials {
+  .section__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-lg); // 시안 55px
+    align-items: stretch;
+  }
+}
+
+// ===== 인용구 (Slider) =====
+.quote {
+  background: var(--c-ink);
+  color: var(--c-mint);
+
+  .section__inner {
+    align-items: flex-end;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--sp-lg);
+    min-height: #{fluid(0px, 560px)}; // 시안 콘텐츠 높이 560
+  }
+
+  &__text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-size: var(--fs-display); // 시안 50px
+    line-height: var(--lh-display);
+
+    // 시안에서 'I understand' / 'your business goals.' 두 구절만 Bold
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__action {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-md);
+  }
+
+  &__links {
+    display: flex;
+    gap: var(--sp-sm); // 시안 30px
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    font-size: var(--fs-lead); // 시안 30px
+
+    a {
+      text-decoration: underline;
+      text-underline-position: from-font;
+      transition: opacity var(--dur) var(--ease);
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .person__name,
+  .person__role {
+    color: var(--c-mint);
+  }
+
+  @media (max-width: 900px) {
+    // 세로 배치에서는 컬럼이 폭 100%를 갖도록 되돌린다 (_layout의 .cols와 짝)
+    .section__inner {
+      align-items: stretch;
+    }
+
+    &__body {
+      min-height: 0;
+    }
+
+    &__action {
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+}
+
+// ===== Banner / CTA =====
+.cta {
+  background: #f5f5f5; // 시안 배너 배경만 페이지 배경과 다르다
+
+  .section__inner {
+    align-items: flex-end;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--sp-lg);
+    min-height: #{fluid(0px, 560px)};
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--c-ink);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-size: #{fluid(34px, 90px)}; // 시안 90px — 페이지에서 가장 큰 제목
+    line-height: 1.2;
+  }
+
+  @media (max-width: 900px) {
+    .section__inner {
+      align-items: stretch;
+    }
+
+    &__body {
+      min-height: 0;
+    }
+  }
+}
+
+// ===== Footer =====
+.site-footer {
+  background: var(--c-ink);
+  color: var(--c-mint);
+
+  .section__inner {
+    align-items: flex-end;
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-lg); // 시안 55px
+    align-items: flex-start;
+  }
+
+  &__logo {
+    width: #{fluid(70px, 106px)};
+    height: auto;
+  }
+
+  &__tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-size: var(--fs-title); // 시안 40px
+    line-height: var(--lh-display);
+    max-width: 750px;
+  }
+
+  &__copy {
+    font-size: var(--fs-body);
+  }
+
+  &__menus {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--sp-lg); // 시안 55px
+  }
+
+  // 라이선스 한 줄 — 시안에 없는 요소지만 커뮤니티 파일 사용 조건상 반드시 필요하다.
+  // 시안 레이아웃을 건드리지 않도록 푸터 맨 아래에 작게 덧붙였다.
+  &__license {
+    max-width: var(--content-max);
+    margin: var(--sp-lg) auto 0;
+    padding-top: var(--sp-sm);
+    border-top: 1px solid rgba(177, 214, 206, 0.28);
+    font-size: var(--fs-caption);
+    color: rgba(177, 214, 206, 0.72);
+
+    a {
+      text-decoration: underline;
+      text-underline-position: from-font;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .section__inner {
+      align-items: stretch;
+    }
+
+    &__menus {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.footer-menu {
+  display: flex;
+  flex-direction: column;
+  gap: #{fluid(9px, 15px)}; // 시안 15px
+
+  &__title {
+    margin: 0;
+    padding: #{fluid(3px, 5px)} #{fluid(6px, 10px)};
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700; // 시안 Bold
+    font-size: var(--fs-lead); // 시안 30px
+    line-height: var(--lh-display);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: #{fluid(1px, 2.5px)};
+  }
+
+  a {
+    display: inline-block;
+    padding: #{fluid(3px, 5px)} #{fluid(6px, 10px)};
+    font-size: var(--fs-body); // 시안 25px
+    text-decoration: underline;
+    text-underline-position: from-font;
+    transition: opacity var(--dur) var(--ease);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

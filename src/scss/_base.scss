@@ -1,0 +1,151 @@
+// ===== 폰트 =====
+//
+// 시안이 쓰는 굵기만 자체 호스팅한다. (Playfair Display 400/500/700, Manrope 400/600)
+// Google Fonts CDN을 직접 물리지 않는 이유:
+//   1) 외부 도메인 왕복이 늘어 LCP가 밀린다
+//   2) 사용하지 않는 굵기까지 CSS에 딸려온다
+// font-display: swap → 폰트 로딩 중에도 텍스트가 보이게 (FOIT 방지)
+
+@each $name, $file, $weight in
+  ('Playfair Display', 'playfair-display-400', 400),
+  ('Playfair Display', 'playfair-display-500', 500),
+  ('Playfair Display', 'playfair-display-700', 700),
+  ('Manrope', 'manrope-400', 400),
+  ('Manrope', 'manrope-600', 600)
+{
+  @font-face {
+    font-family: $name;
+    // 경로는 컴파일 결과물(dist/css/style.css) 기준이다. 소스(src/scss) 기준이 아니다.
+    src: url('../../assets/fonts/#{$file}.woff2') format('woff2');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+// ===== 리셋 =====
+// 필요한 것만. normalize 전체를 넣으면 안 쓰는 규칙이 대부분이라 용량만 늘어난다.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; // iOS 가로 전환 시 폰트 자동 확대 방지
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  // 시안이 Figma 렌더 기준이라 기본 안티앨리어싱이 더 가깝다.
+  // -webkit-font-smoothing: antialiased 는 획을 얇게 만들어 오히려 차이를 키워서 쓰지 않는다.
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+hr {
+  // hr의 기본 margin은 0.5em이다. 상속 폰트가 25px이면 위아래로 12.5px씩 붙어
+  // 섹션 간격이 시안보다 25px 벌어진다. 실제로 이 값 때문에 하단 전체가 밀렸었다.
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+// ===== 접근성 =====
+
+// 키보드 사용자에게만 포커스 링을 보여준다. 마우스 클릭 시에는 나오지 않는다.
+// 색상은 다크/라이트 배경 양쪽에서 대비가 확보되는 값으로 잡았다.
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid #2f6f62;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+// 다크 섹션 위에서는 민트로 바꿔야 대비가 산다
+.is-dark :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline-color: var(--c-mint);
+}
+
+// 스크린리더 전용 텍스트
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// 본문 바로가기 링크 — 키보드 탭 첫 번째로 잡힌다
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--c-mint);
+  color: var(--c-ink);
+  font-weight: 600;
+  transform: translateY(-120%);
+  transition: transform var(--dur) var(--ease);
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+// 모션 최소화 설정을 켠 사용자에게는 애니메이션을 걷어낸다 (WCAG 2.3.3)
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

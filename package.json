@@ -1,0 +1,22 @@
+{
+  "name": "codev-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Codev B2B Landing Page — 퍼블리싱 데모 (HTML + SCSS)",
+  "scripts": {
+    "css": "sass src/scss/main.scss dist/css/style.css --style=expanded --no-source-map",
+    "css:min": "sass src/scss/main.scss dist/css/style.min.css --style=compressed --no-source-map",
+    "watch": "sass --watch src/scss/main.scss dist/css/style.css --style=expanded",
+    "build": "npm run css && npm run css:min",
+    "serve": "npx --yes serve -l 4173 .",
+    "img": "node tools/optimize-images.mjs",
+    "fonts": "node tools/subset-fonts.mjs",
+    "shots": "node tools/capture.mjs",
+    "portfolio": "node tools/make-portfolio.mjs"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0",
+    "sharp": "^0.33.5",
+    "playwright": "^1.48.0"
+  }
+}

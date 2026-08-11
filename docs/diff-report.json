@@ -1,0 +1,17 @@
+{
+  "compared_height": 2076,
+  "design_width": 1800,
+  "pixel_match_pct_tol30": 96.54,
+  "pixel_match_pct_tol60": 96.83,
+  "mean_channel_diff": 9.56,
+  "structural_lines_ref": 4,
+  "structural_line_offsets_px": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "max_line_offset_px": 1,
+  "mean_line_offset_px": 0.5,
+  "pixel_match_pct_1px_tolerance": 98.36
+}
