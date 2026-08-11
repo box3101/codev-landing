@@ -1,9 +1,9 @@
 /**
- * 크몽 포트폴리오 이미지 3장 생성
+ * 크몽 포트폴리오 이미지 생성
  *
  *   portfolio/compare.png       시안 vs 결과물 + diff 오버레이
  *   portfolio/responsive.png    1920 / 768 / 375
- *   portfolio/optimization.png  용량 최적화 실측값
+ *   portfolio/optimization.png  용량 최적화 실측값 (--with-optimization 플래그 필요)
  *
  * 방식:
  *   HTML을 만들어 Playwright로 찍는다. 이미지 합성 라이브러리로 글자를 그리는 것보다
@@ -332,7 +332,14 @@ async function main() {
   const results = {};
   results.compare = await buildCompare(page);
   results.responsive = await buildResponsive(page);
-  results.optimization = await buildOptimization(page);
+
+  // 용량 최적화 이미지는 기본으로 만들지 않는다.
+  // 압축 자체는 계속 적용하지만(사이트가 실제로 빨라지는 부분이라 뺄 이유가 없다),
+  // 포트폴리오에 걸었을 때 시안 대조·반응형만큼 눈에 들어오지 않아 제외했다.
+  // 필요하면 `node tools/make-portfolio.mjs --with-optimization` 로 다시 뽑는다.
+  if (process.argv.includes('--with-optimization')) {
+    results.optimization = await buildOptimization(page);
+  }
 
   await browser.close();
   server.close();

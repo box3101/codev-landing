@@ -47,7 +47,8 @@ python tools/subset_fonts.py   # 폰트 서브셋 + 리포트 생성
 
 npm run serve    # 로컬 서버 (http://localhost:4173)
 node tools/capture.mjs --browsers=chromium,firefox,webkit   # 3종 캡처
-npm run portfolio   # 포트폴리오 이미지 3장 생성
+npm run portfolio   # 포트폴리오 이미지 생성 (compare, responsive)
+node tools/make-portfolio.mjs --with-optimization   # 용량 최적화 이미지까지
 ```
 
 ## 구조
