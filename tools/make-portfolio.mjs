@@ -144,9 +144,10 @@ async function buildCompare(page) {
     .png()
     .toFile(path.join(cropDir, 'shot.png'));
 
-  // diff 아래에 수치 캡션을 달았다가 뺐다.
-  // 이미지가 이미 '겹쳐서 대조했다'는 걸 보여주는데 그 밑에 숫자를 늘어놓으면
-  // 설명 과잉으로 읽힌다. 실측값은 docs/diff-report.json과 README에 남아 있다.
+  // diff 오버레이는 캡션이 없으면 그냥 빨간 얼룩으로 보인다. 한 줄은 있어야 의미가 생긴다.
+  // 다만 일치율·허용오차까지 나열하면 설명 과잉으로 읽혀서, 가장 중요한 숫자 하나만 남긴다.
+  // 값은 docs/diff-report.json 실측값에서 가져온다. (전체 수치는 README에 있다)
+  const caption = `시안 위에 겹쳐 대조 — 오차 최대 ${diff.max_line_offset_px}px 이내`;
 
   const css = `
     .split{ display:grid; grid-template-columns:1fr 1px 1fr; gap:0 34px; align-items:start; }
@@ -157,6 +158,7 @@ async function buildCompare(page) {
     .diffwrap{ margin-top:34px; display:flex; flex-direction:column; align-items:center; }
     .diffbox{ width:330px; background:#fff; border:1px solid ${LINE}; overflow:hidden; line-height:0; }
     .diffbox img{ width:100%; display:block; }
+    .diffcap{ margin-top:14px; font-size:14px; color:${MUTED}; letter-spacing:-0.01em; }
   `;
 
   // 좌우 라벨은 각 열의 같은 높이에 오도록 그리드 행을 맞춘다.
@@ -173,6 +175,7 @@ async function buildCompare(page) {
 
     <div class="diffwrap">
       <div class="diffbox"><img src="/docs/diff-overlay.png" alt=""></div>
+      <div class="diffcap">${caption}</div>
     </div>
 
     <div class="foot">${FOOTNOTE}</div>
