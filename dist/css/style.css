@@ -477,6 +477,12 @@ button {
   height: 92.113%;
   transform: translateX(-50%);
 }
+@media (max-width: 900px) {
+  .media__photo--team {
+    left: 50%;
+    width: 100%;
+  }
+}
 
 .nav {
   background: var(--c-ink);

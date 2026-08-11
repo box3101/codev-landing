@@ -2,6 +2,16 @@
 
 Figma 시안을 HTML + SCSS로 1:1 재현한 퍼블리싱 데모입니다.
 
+**배포:** https://codev-landing-eight.vercel.app
+
+| 검증 항목 | 결과 |
+| --- | --- |
+| 시안 대조 (구조선 오차) | 최대 **1px** |
+| 시안 대조 (픽셀 일치율) | **98.4%** (1px 허용오차) |
+| 크로스브라우징 | Chromium / Firefox / WebKit 페이지 높이 일치 |
+| 콘솔 · 네트워크 에러 | 0건 |
+| 에셋 용량 | 887.4 KB → 132.5 KB (**85.1% 감소**) |
+
 ## 라이선스 / 출처
 
 > **Design: Figma Community — Codev B2B Landing Page**
@@ -89,22 +99,3 @@ Figma가 돌려주는 px값을 그대로 쓰면 안 됩니다. 3배 환산해야
 > 시안에 폼(form)이 없어 `label` 연결 대상이 없습니다.
 > 시안에 없는 입력 요소를 새로 만들지 않았습니다.
 
-## 남은 에셋 1건
-
-`Product` 섹션의 카드 스크린샷 2장이 아직 비어 있습니다.
-
-시안에서 이 영역은 Figma 안에서 벡터·텍스트 수백 개로 조립된 UI 목업이라,
-마크업으로 재현하지 않고 이미지 한 장으로 export해서 쓰는 것이 맞습니다.
-그런데 해당 노드가 커뮤니티 파일의 `Thumbnail` 프레임 클리핑 밖에 있어
-export가 1×1 빈 이미지로 나옵니다.
-
-에셋 넣는 방법:
-
-1. Figma에서 `Product` → `card` → 각 `box` → `image` 프레임 선택
-2. Export **3x** / PNG
-3. `assets/img/product-ecommerce.png`, `assets/img/product-signup.png` 로 저장
-4. `npm run img` 실행
-5. `index.html`에서 `card__shot` 안에 주석 처리된 `img` 태그 2곳을 주석 해제
-
-비어 있는 동안에도 시안의 회색 박스(`#f5f5f5`)와 비율(710:500)은 그대로 유지되어
-레이아웃은 어긋나지 않습니다. 콘솔 에러도 없습니다.

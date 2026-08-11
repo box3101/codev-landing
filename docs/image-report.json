@@ -35,8 +35,21 @@
       "after": 3180
     }
   ],
-  "products": [],
-  "total_before": 693482,
-  "total_after": 57602,
-  "saved_pct": 91.7
+  "products": [
+    {
+      "file": "product-ecommerce.webp",
+      "source": "product-ecommerce.png",
+      "before": 34861,
+      "after": 13886
+    },
+    {
+      "file": "product-signup.webp",
+      "source": "product-signup.png",
+      "before": 117160,
+      "after": 12290
+    }
+  ],
+  "total_before": 845503,
+  "total_after": 83778,
+  "saved_pct": 90.1
 }

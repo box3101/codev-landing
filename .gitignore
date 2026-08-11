@@ -14,3 +14,5 @@ docs/_tmp/
 docs/diff-overlay.png
 docs/q-*.png
 docs/vp-*.png
+
+.vercel

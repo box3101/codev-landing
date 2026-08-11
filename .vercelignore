@@ -1,0 +1,8 @@
+# 사이트 구동에 필요 없는 것들은 CDN에 올리지 않는다.
+node_modules
+tools
+docs
+portfolio
+assets/raw
+src/scss
+package-lock.json
